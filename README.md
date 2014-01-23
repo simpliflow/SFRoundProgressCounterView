@@ -29,16 +29,20 @@ Usage
 1. Either create SFRoundProgressCounterView by dragging UIView from storyboard and change implementing class or create it programmatically
 2. Create an outlet (if create via storyboard)
 3. Set up time intervals
+
         self.sfProgressCounterView.delegate = self;
         NSNumber* interval = [NSNumber numberWithLong:5000.0];
         self.sfProgressCounterView.intervals = @[interval];
         // you could also define multiple intervals
         //self.sfProgressCounterView.intervals = @[interval, interval, interval];
+        
 4. Counter interaction
+
         [self.sfProgressCounterView start];
         [self.sfProgressCounterView stop];
         [self.sfProgressCounterView resume];
         [self.sfProgressCounterView reset];
+        
 
 Delegate Methods
 ---------
