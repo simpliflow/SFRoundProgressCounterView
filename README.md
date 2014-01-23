@@ -60,3 +60,10 @@ Licence
 -------
 
 Distributed under the MIT License.
+
+Attributation
+--------------
+
+[TTCounterLabel](https://github.com/TriggerTrap/TTCounterLabel)
+
+[CERoundProgressView](https://github.com/Ceroce/CERoundProgressView)
