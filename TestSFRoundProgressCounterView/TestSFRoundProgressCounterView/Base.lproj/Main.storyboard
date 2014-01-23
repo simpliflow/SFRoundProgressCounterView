@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5023" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="HVH-BD-Sve">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller - Default-->
+        <scene sceneID="69r-Ew-jyT">
+            <objects>
+                <viewController id="H12-gs-GBj" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wzL-KI-qEw"/>
+                        <viewControllerLayoutGuide type="bottom" id="QVb-dT-W33"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qOb-oO-W0G">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sdk-Z4-igI" customClass="SFRoundProgressCounterView">
+                                <rect key="frame" x="20" y="117" width="280" height="280"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gc1-5h-GTd">
+                                <rect key="frame" x="20" y="56" width="280" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="START">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionStartStop:" destination="H12-gs-GBj" eventType="touchUpInside" id="jWo-QX-nnQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0O-x6-K5P">
+                                <rect key="frame" x="20" y="416" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="RESTART">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionRestart:" destination="H12-gs-GBj" eventType="touchUpInside" id="JWu-MO-EKJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Default" image="example_one" id="CBG-SK-JoR"/>
+                    <connections>
+                        <outlet property="progressCounterView" destination="sdk-Z4-igI" id="ngM-f2-ys3"/>
+                        <outlet property="restartButton" destination="C0O-x6-K5P" id="MS3-qX-Y44"/>
+                        <outlet property="startStopButton" destination="Gc1-5h-GTd" id="oqB-q8-WKK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zGl-gL-crW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="337" y="-298"/>
+        </scene>
+        <!--View Controller - Color-->
+        <scene sceneID="2Ua-6f-fRF">
+            <objects>
+                <viewController id="lG6-fJ-nmG" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Xkc-Jd-SB7"/>
+                        <viewControllerLayoutGuide type="bottom" id="iwO-qP-r5R"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="a2N-yK-eBg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LKI-My-Jsw" customClass="SFRoundProgressCounterView">
+                                <rect key="frame" x="20" y="117" width="280" height="280"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q60-OP-qTo">
+                                <rect key="frame" x="20" y="56" width="280" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="START">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionStartStop:" destination="lG6-fJ-nmG" eventType="touchUpInside" id="Vjr-WT-SON"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ueh-lM-qcT">
+                                <rect key="frame" x="20" y="416" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="RESTART">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionRestart:" destination="lG6-fJ-nmG" eventType="touchUpInside" id="6jk-2o-BQg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Color" image="example_two" id="hjF-FI-q1l"/>
+                    <connections>
+                        <outlet property="progressCounterView" destination="LKI-My-Jsw" id="33t-QX-3nu"/>
+                        <outlet property="restartButton" destination="Ueh-lM-qcT" id="gG4-dt-YmP"/>
+                        <outlet property="startStopButton" destination="Q60-OP-qTo" id="pEn-0a-d8t"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fbf-3k-6Ej" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="337" y="372"/>
+        </scene>
+        <!--View Controller - Intervals-->
+        <scene sceneID="5a7-Yx-gJY">
+            <objects>
+                <viewController id="mwD-GF-Pg7" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="N0p-GF-XoW"/>
+                        <viewControllerLayoutGuide type="bottom" id="MyR-u6-Qrt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="B0T-qE-wbF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VRY-Fl-XXH" customClass="SFRoundProgressCounterView">
+                                <rect key="frame" x="20" y="117" width="280" height="280"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xoc-5R-lXw">
+                                <rect key="frame" x="20" y="56" width="280" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="START">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionStartStop:" destination="mwD-GF-Pg7" eventType="touchUpInside" id="YSe-3S-ert"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3e-OY-rMm">
+                                <rect key="frame" x="20" y="416" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="RESTART">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionRestart:" destination="mwD-GF-Pg7" eventType="touchUpInside" id="MBg-SX-chV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Intervals" image="example_three" id="bGm-l2-pii"/>
+                    <connections>
+                        <outlet property="progressCounterView" destination="VRY-Fl-XXH" id="yVW-aq-Kwk"/>
+                        <outlet property="restartButton" destination="Z3e-OY-rMm" id="fns-w8-fCZ"/>
+                        <outlet property="startStopButton" destination="Xoc-5R-lXw" id="vpS-8A-PwN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="55O-TY-sRe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="337" y="1074"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="zHA-qR-t4t">
+            <objects>
+                <tabBarController definesPresentationContext="YES" id="HVH-BD-Sve" customClass="SFTabBarController" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="ClR-Td-ASL">
+                        <rect key="frame" x="129" y="330" width="163" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="H12-gs-GBj" kind="relationship" relationship="viewControllers" id="ICb-AT-fc3"/>
+                        <segue destination="lG6-fJ-nmG" kind="relationship" relationship="viewControllers" id="p3d-qt-Jet"/>
+                        <segue destination="mwD-GF-Pg7" kind="relationship" relationship="viewControllers" id="LY0-4i-DA5"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UtW-eg-uLQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-170" y="372"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="example_one" width="50" height="50"/>
+        <image name="example_three" width="16" height="16"/>
+        <image name="example_two" width="50" height="50"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
