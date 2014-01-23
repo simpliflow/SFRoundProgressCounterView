@@ -28,6 +28,7 @@
 @property (assign, nonatomic) id <SFRoundProgressCounterViewDelegate> delegate;
 @property (strong, nonatomic) UIColor* progressColor;
 @property (strong, nonatomic) UIColor* labelColor;
+@property (strong, nonatomic) UIColor* backgroundColor;
 
 @property (strong, nonatomic) NSArray* intervals;
 

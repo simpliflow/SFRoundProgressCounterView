@@ -15,6 +15,8 @@
 @property (nonatomic, strong) SFRoundProgressView* totalProgressView;
 @property (nonatomic, strong) SFRoundProgressView* intervalProgressView;
 @property (nonatomic, strong) SFCounterLabel* counterLabel;
+@property (nonatomic, strong) UIView* outerCircleView;
+@property (nonatomic, strong) UIView* innerCircleView;
 
 @property (atomic) BOOL progressStopped;
 @property (assign) int currentIntervalPosition;
@@ -66,11 +68,11 @@
     [self addSubview:self.totalProgressView];
     
     // white circle view
-    UIView* circleView = [[UIView alloc] initWithFrame:CGRectMake(0,0, diameter - 3.0, diameter - 3.0)];
-    circleView.layer.cornerRadius = circleView.frame.size.width/2.0;
-    circleView.backgroundColor = [UIColor whiteColor];
-    [self addSubview:circleView];
-    [circleView setCenter:center];
+    self.outerCircleView = [[UIView alloc] initWithFrame:CGRectMake(0,0, diameter - 3.0, diameter - 3.0)];
+    self.outerCircleView.layer.cornerRadius = self.outerCircleView.frame.size.width/2.0;
+    self.outerCircleView.backgroundColor = [UIColor whiteColor];
+    [self addSubview:self.outerCircleView];
+    [self.outerCircleView setCenter:center];
     
         
     // interval progress view
@@ -83,11 +85,11 @@
     [self addSubview:self.intervalProgressView];
     
     // white circle view
-    circleView = [[UIView alloc] initWithFrame:CGRectMake(0,0, diameter - 10.0, diameter - 10.0)];
-    circleView.layer.cornerRadius = circleView.frame.size.width/2.0;
-    circleView.backgroundColor = [UIColor whiteColor];
-    [self addSubview:circleView];
-    [circleView setCenter:center];
+    self.innerCircleView = [[UIView alloc] initWithFrame:CGRectMake(0,0, diameter - 10.0, diameter - 10.0)];
+    self.innerCircleView.layer.cornerRadius = self.innerCircleView.frame.size.width/2.0;
+    self.innerCircleView.backgroundColor = [UIColor whiteColor];
+    [self addSubview:self.innerCircleView];
+    [self.innerCircleView setCenter:center];
     
     // counter label view
     int fontSize = self.bounds.size.height/COUNTER_LABEL_SCALE_FACTOR;
@@ -260,6 +262,16 @@
 - (void)setLabelColor:(UIColor *)labelColor
 {
     self.counterLabel.textColor = labelColor;
+}
+
+- (UIColor*)backgroundColor {
+    return self.innerCircleView.backgroundColor;
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    self.innerCircleView.backgroundColor = backgroundColor;
+    self.outerCircleView.backgroundColor = backgroundColor;
 }
 
 @end
