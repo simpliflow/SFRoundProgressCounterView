@@ -48,7 +48,7 @@
     return self;
 }
 
-- (void) setup
+- (void) layoutSubviews
 {
     [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
@@ -60,43 +60,30 @@
     }
     
     // total progress view
-    self.totalProgressView = [[SFRoundProgressView alloc] initWithFrame:self.bounds];
-    self.totalProgressView.startAngle = (3.0*M_PI)/2.0;
-    self.totalProgressView.tintColor = self.progressColor;
-    [self.totalProgressView setProgress:1.0 animated:NO];
-
+    self.totalProgressView.frame = self.bounds;
     [self addSubview:self.totalProgressView];
     
     // white circle view
-    self.outerCircleView = [[UIView alloc] initWithFrame:CGRectMake(0,0, diameter - 3.0, diameter - 3.0)];
+    self.outerCircleView.frame = CGRectMake(0,0, diameter - 3.0, diameter - 3.0);
     self.outerCircleView.layer.cornerRadius = self.outerCircleView.frame.size.width/2.0;
-    self.outerCircleView.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.outerCircleView];
     [self.outerCircleView setCenter:center];
     
-        
     // interval progress view
-    self.intervalProgressView = [[SFRoundProgressView alloc] initWithFrame:CGRectMake(0,0, diameter - 9.0, diameter - 9.0)];
-    self.intervalProgressView.startAngle = (3.0*M_PI)/2.0;
-    self.intervalProgressView.tintColor = self.progressColor;
-    [self.intervalProgressView setProgress:1.0 animated:NO];
+    self.intervalProgressView.frame = CGRectMake(0,0, diameter - 9.0, diameter - 9.0);
     [self.intervalProgressView setCenter:center];
-    
     [self addSubview:self.intervalProgressView];
     
     // white circle view
-    self.innerCircleView = [[UIView alloc] initWithFrame:CGRectMake(0,0, diameter - 10.0, diameter - 10.0)];
+    self.innerCircleView.frame = CGRectMake(0,0, diameter - 10.0, diameter - 10.0);
     self.innerCircleView.layer.cornerRadius = self.innerCircleView.frame.size.width/2.0;
-    self.innerCircleView.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.innerCircleView];
     [self.innerCircleView setCenter:center];
     
     // counter label view
     int fontSize = self.bounds.size.height/COUNTER_LABEL_SCALE_FACTOR;
-    self.counterLabel = [[SFCounterLabel alloc] initWithFrame:CGRectMake(0, 0, diameter - 10.0, diameter/2.0)];
-    self.counterLabel.countDirection = kCountDirectionDown;
-    self.counterLabel.countdownDelegate = self;
-
+    self.counterLabel.frame = CGRectMake(0, 0, diameter - 10.0, diameter/2.0);
+    
     [self.counterLabel setBoldFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:fontSize + 20]];
     [self.counterLabel setRegularFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:fontSize + 15]];
     [self.counterLabel updateApperance];
@@ -104,6 +91,34 @@
     [self addSubview: self.counterLabel];
     [self.counterLabel setCenter:center];
     
+}
+
+- (void) setup
+{
+    // total progress view
+    self.totalProgressView = [[SFRoundProgressView alloc] init];
+    self.totalProgressView.startAngle = (3.0*M_PI)/2.0;
+    self.totalProgressView.tintColor = self.progressColor;
+    [self.totalProgressView setProgress:1.0 animated:NO];
+    
+    // white circle view
+    self.outerCircleView = [[UIView alloc] init];
+    self.outerCircleView.backgroundColor = self.backgroundColor;
+    
+    // interval progress view
+    self.intervalProgressView = [[SFRoundProgressView alloc] init];
+    self.intervalProgressView.startAngle = (3.0*M_PI)/2.0;
+    self.intervalProgressView.tintColor = self.progressColor;
+    [self.intervalProgressView setProgress:1.0 animated:NO];
+    
+    // white circle view
+    self.innerCircleView = [[UIView alloc] init];
+    self.innerCircleView.backgroundColor = self.backgroundColor;
+    
+    // counter label view
+    self.counterLabel = [[SFCounterLabel alloc] init];
+    self.counterLabel.countDirection = kCountDirectionDown;
+    self.counterLabel.countdownDelegate = self;
 }
 
 #pragma mark - setting intervals
@@ -179,7 +194,7 @@
 #pragma mark - SFCounterLabelDelegate
 
 - (void)countdownDidEnd {
-
+    
     BOOL isFinished = !self.intervals || self.currentIntervalPosition >= [self.intervals count];
     
     self.progressStopped = YES;
@@ -206,7 +221,7 @@
                 }
             }
         }
-
+        
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.6 animations:^{
             self.counterLabel.alpha = 1.0;
@@ -245,31 +260,51 @@
 }
 
 #pragma mark - tint color for rounded progress bars and label
+
+@synthesize progressColor = _progressColor;
 - (UIColor*)progressColor {
-    return self.totalProgressView.tintColor;
+    if (_progressColor) {
+        return _progressColor;
+    } else {
+        return self.totalProgressView.tintColor;
+    }
 }
 
 - (void)setProgressColor:(UIColor *)progressColor
 {
-    self.totalProgressView.tintColor = progressColor;
-    self.intervalProgressView.tintColor = progressColor;
+    _progressColor = progressColor;
+    
+    self.totalProgressView.tintColor = _progressColor;
+    self.intervalProgressView.tintColor = _progressColor;
 }
 
+@synthesize labelColor = _labelColor;
 - (UIColor*)labelColor {
-    return self.counterLabel.textColor;
+    if (_labelColor) {
+        return _labelColor;
+    } else {
+        return self.counterLabel.textColor;
+    }
 }
 
 - (void)setLabelColor:(UIColor *)labelColor
 {
-    self.counterLabel.textColor = labelColor;
+    _labelColor = labelColor;
+    self.counterLabel.textColor = _labelColor;
 }
 
+@synthesize backgroundColor = _backgroundColor;
 - (UIColor*)backgroundColor {
-    return self.innerCircleView.backgroundColor;
+    if (!_backgroundColor) {
+        _backgroundColor = [UIColor whiteColor];
+    }
+    
+    return _backgroundColor;
 }
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
+    [super setBackgroundColor:backgroundColor];
     self.innerCircleView.backgroundColor = backgroundColor;
     self.outerCircleView.backgroundColor = backgroundColor;
 }
