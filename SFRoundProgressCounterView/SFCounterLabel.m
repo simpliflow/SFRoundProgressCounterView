@@ -2,7 +2,10 @@
 //  SFRoundProgressCounterView.h
 //  SFRoundProgressCounter
 //
-//  Created by Thomas Winkler on 22/01/14.
+//  Initially created by Ross Gibson on 10/10/2013.
+//  Copyright (c) 2013 Triggertrap. All rights reserved.
+//
+//  Adapted by Thomas Winkler on 22/01/14.
 //  Copyright (c) 2014 Simpliflow. All rights reserved.
 //
 
