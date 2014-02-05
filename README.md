@@ -44,6 +44,24 @@ Usage
         [self.sfProgressCounterView reset];
         
 
+5. Appearance Settings
+        
+        // thickness of outer circle
+        self.sfProgressCounterView.outerCircleThickness = [NSNumber numberWithFloat:3.0];
+
+        // thickness of inner circle
+        self.sfProgressCounterView.innerCircleThickness = [NSNumber numberWithFloat:1.0];
+
+        // distance between two circles (if multiple intervals)
+        self.sfProgressCounterView.circleDistance = [NSNumber numberWithFloat:6.0]; 
+
+        // set color of progress circles
+        self.sfProgressCounterView.progressColor = color;
+
+        // set color of counter label
+        self.sfProgressCounterView.labelColor = color;
+
+
 Delegate Methods
 ---------
 

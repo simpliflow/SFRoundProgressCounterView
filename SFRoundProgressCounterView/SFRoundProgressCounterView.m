@@ -64,25 +64,29 @@
     [self addSubview:self.totalProgressView];
     
     // white circle view
-    self.outerCircleView.frame = CGRectMake(0,0, diameter - 3.0, diameter - 3.0);
+    float outerProgressViewDiameter = diameter - [self.outerCircleThickness floatValue];
+    self.outerCircleView.frame = CGRectMake(0,0, outerProgressViewDiameter, diameter - [self.outerCircleThickness floatValue]);
+    
     self.outerCircleView.layer.cornerRadius = self.outerCircleView.frame.size.width/2.0;
     [self addSubview:self.outerCircleView];
     [self.outerCircleView setCenter:center];
     
+    float intervalProgressViewDiameter = outerProgressViewDiameter - [self.circleDistance floatValue];
     // interval progress view
-    self.intervalProgressView.frame = CGRectMake(0,0, diameter - 9.0, diameter - 9.0);
+    self.intervalProgressView.frame = CGRectMake(0,0, intervalProgressViewDiameter, intervalProgressViewDiameter);
     [self.intervalProgressView setCenter:center];
     [self addSubview:self.intervalProgressView];
     
     // white circle view
-    self.innerCircleView.frame = CGRectMake(0,0, diameter - 10.0, diameter - 10.0);
+    float innerWhiteCircleDiameter = intervalProgressViewDiameter - [self.innerCircleThickness floatValue];
+    self.innerCircleView.frame = CGRectMake(0,0, innerWhiteCircleDiameter, innerWhiteCircleDiameter);
     self.innerCircleView.layer.cornerRadius = self.innerCircleView.frame.size.width/2.0;
     [self addSubview:self.innerCircleView];
     [self.innerCircleView setCenter:center];
     
     // counter label view
     int fontSize = self.bounds.size.height/COUNTER_LABEL_SCALE_FACTOR;
-    self.counterLabel.frame = CGRectMake(0, 0, diameter - 10.0, diameter/2.0);
+    self.counterLabel.frame = CGRectMake(0, 0, innerWhiteCircleDiameter, diameter/2.0);
     
     [self.counterLabel setBoldFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:fontSize + 20]];
     [self.counterLabel setRegularFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:fontSize + 15]];
@@ -308,5 +312,31 @@
     self.innerCircleView.backgroundColor = backgroundColor;
     self.outerCircleView.backgroundColor = backgroundColor;
 }
+
+#pragma mark - thickness parameter
+- (NSNumber*)outerCircleThickness {
+    if (!_outerCircleThickness) {
+        _outerCircleThickness = [NSNumber numberWithFloat:3.f];
+    }
+    
+    return _outerCircleThickness;
+}
+
+- (NSNumber*)innerCircleThickness {
+    if (!_innerCircleThickness) {
+        _innerCircleThickness = [NSNumber numberWithFloat:1.f];
+    }
+    
+    return _innerCircleThickness;
+}
+
+- (NSNumber*)circleDistance {
+    if (!_circleDistance) {
+        _circleDistance = [NSNumber numberWithFloat:6.f];
+    }
+    
+    return _circleDistance;
+}
+
 
 @end

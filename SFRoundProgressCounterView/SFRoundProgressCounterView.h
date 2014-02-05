@@ -30,6 +30,10 @@
 @property (strong, nonatomic) UIColor* labelColor;
 @property (strong, nonatomic) UIColor* backgroundColor;
 
+@property (strong, nonatomic) NSNumber* outerCircleThickness;
+@property (strong, nonatomic) NSNumber* innerCircleThickness;
+@property (strong, nonatomic) NSNumber* circleDistance;
+
 @property (strong, nonatomic) NSArray* intervals;
 
 - (void)start;

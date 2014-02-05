@@ -13,7 +13,6 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet SFRoundProgressCounterView *progressCounterView;
 @property (weak, nonatomic) IBOutlet UIButton *startStopButton;
-@property (weak, nonatomic) IBOutlet UIButton *restartButton;
 
 @property (strong, nonatomic) AVAudioPlayer *warningAudioPlayer;
 @property (strong, nonatomic) AVAudioPlayer *finishAudioPlayer;
@@ -34,6 +33,11 @@
     self.progressCounterView.delegate = self;
     NSNumber* interval = [NSNumber numberWithLong:5000.0];
     self.progressCounterView.intervals = @[interval];
+
+    // set thickness and distance parameters
+    self.progressCounterView.outerCircleThickness = [NSNumber numberWithFloat:3.0];
+    self.progressCounterView.innerCircleThickness = [NSNumber numberWithFloat:1.0];
+    self.progressCounterView.circleDistance = [NSNumber numberWithFloat:6.0];
     
     // setup audio player
     [self.warningAudioPlayer prepareToPlay];
@@ -50,7 +54,6 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.startStopButton setTitle:@"START" forState:UIControlStateNormal];
         [self.progressCounterView reset];
-        self.restartButton.hidden = YES;
     });
 }
 
@@ -82,24 +85,25 @@
 - (IBAction)actionStartStop:(id)sender {
     
     UIButton *button = (UIButton *)sender;
-    
-    // start
-    if ([button.currentTitle isEqualToString:@"START"]) {
-    
-        [self.progressCounterView start];
-        [self.startStopButton setTitle:@"STOP" forState:UIControlStateNormal];
-        self.restartButton.hidden = NO;
-    // stop
-    } else if ([button.currentTitle isEqualToString:@"STOP"]) {
-        
-        [self.progressCounterView stop];
-        [self.startStopButton setTitle:@"RESUME" forState:UIControlStateNormal];
-    // resume
-    } else {
-        
-        [self.progressCounterView resume];
-        [self.startStopButton setTitle:@"STOP" forState:UIControlStateNormal];
-    }
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // start
+        if ([button.currentTitle isEqualToString:@"START"]) {
+            
+            [self.progressCounterView start];
+            [self.startStopButton setTitle:@"STOP" forState:UIControlStateNormal];
+            // stop
+        } else if ([button.currentTitle isEqualToString:@"STOP"]) {
+            
+            [self.progressCounterView stop];
+            [self.startStopButton setTitle:@"RESUME" forState:UIControlStateNormal];
+            // resume
+        } else {
+            
+            [self.progressCounterView resume];
+            [self.startStopButton setTitle:@"STOP" forState:UIControlStateNormal];
+        }
+    });
 }
 
 - (IBAction)actionRestart:(id)sender {
@@ -116,7 +120,6 @@
             self.progressCounterView.labelColor = color;
             
             self.startStopButton.tintColor = color;
-            self.restartButton.tintColor = color;
         });
     }
 }
@@ -127,7 +130,6 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.startStopButton setTitle:@"START" forState:UIControlStateNormal];
             [self.progressCounterView stop];
-            self.restartButton.hidden = YES;
             _intervals = intervals;
             self.progressCounterView.intervals = intervals;
         });
