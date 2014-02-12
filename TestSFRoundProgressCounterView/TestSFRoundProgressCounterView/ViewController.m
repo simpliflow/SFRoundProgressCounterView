@@ -57,7 +57,7 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.startStopButton setTitle:@"START" forState:UIControlStateNormal];
-        [self.progressCounterView reset];
+//        [self.progressCounterView reset];
     });
 }
 

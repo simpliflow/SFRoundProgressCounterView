@@ -209,9 +209,6 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.intervalProgressView.progress = 0.0;
-        if (self.currentIntervalPosition >= [self.intervals count]) {
-            self.totalProgressView.hidden = YES;
-        }
         [self setNeedsDisplay];
     });
     
@@ -224,6 +221,12 @@
             }
         }
         else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.totalProgressView.hidden = YES;
+                self.intervalProgressView.hidden = YES;
+                [self setNeedsDisplay];
+            });
+            
             if ([self.delegate respondsToSelector:@selector(countdownDidEnd:)]) {
                 [self.delegate countdownDidEnd:self];
             }
