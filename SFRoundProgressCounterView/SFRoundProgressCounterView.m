@@ -63,7 +63,7 @@
     self.totalProgressView.frame = self.bounds;
     [self addSubview:self.totalProgressView];
     
-    // white circle view
+    // outer circle view
     float outerProgressViewDiameter = diameter - [self.outerCircleThickness floatValue];
     self.outerCircleView.frame = CGRectMake(0,0, outerProgressViewDiameter, diameter - [self.outerCircleThickness floatValue]);
     
@@ -77,7 +77,7 @@
     [self.intervalProgressView setCenter:center];
     [self addSubview:self.intervalProgressView];
     
-    // white circle view
+    // inner circle view
     float innerWhiteCircleDiameter = intervalProgressViewDiameter - [self.innerCircleThickness floatValue];
     self.innerCircleView.frame = CGRectMake(0,0, innerWhiteCircleDiameter, innerWhiteCircleDiameter);
     self.innerCircleView.layer.cornerRadius = self.innerCircleView.frame.size.width/2.0;
@@ -90,6 +90,7 @@
     
     [self.counterLabel setBoldFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:fontSize + 20]];
     [self.counterLabel setRegularFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:fontSize + 15]];
+    self.counterLabel.adjustsFontSizeToFitWidth = YES;
     [self.counterLabel updateApperance];
     
     [self addSubview: self.counterLabel];
@@ -102,7 +103,8 @@
     // total progress view
     self.totalProgressView = [[SFRoundProgressView alloc] init];
     self.totalProgressView.startAngle = (3.0*M_PI)/2.0;
-    self.totalProgressView.tintColor = self.progressColor;
+    self.totalProgressView.tintColor = self.outerProgressColor;
+    self.totalProgressView.trackColor = self.innerTrackColor;
     [self.totalProgressView setProgress:1.0 animated:NO];
     
     // white circle view
@@ -112,7 +114,8 @@
     // interval progress view
     self.intervalProgressView = [[SFRoundProgressView alloc] init];
     self.intervalProgressView.startAngle = (3.0*M_PI)/2.0;
-    self.intervalProgressView.tintColor = self.progressColor;
+    self.intervalProgressView.tintColor = self.innerProgressColor;
+    self.intervalProgressView.trackColor = self.outerTrackColor;
     [self.intervalProgressView setProgress:1.0 animated:NO];
     
     // white circle view
@@ -204,7 +207,6 @@
     self.progressStopped = YES;
     [self.counterLabel stop];
     
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         self.intervalProgressView.progress = 0.0;
         if (self.currentIntervalPosition >= [self.intervals count]) {
@@ -213,37 +215,22 @@
         [self setNeedsDisplay];
     });
     
-    [UIView animateWithDuration:0.6 animations:^{
-        self.counterLabel.alpha = 0.0;
-        
-        if (self.delegate) {
-            
-            // delegate call interval did end
-            if (!isFinished) {
-                if ([self.delegate respondsToSelector:@selector(intervalDidEnd:WithIntervalPosition:)]) {
-                    [self.delegate intervalDidEnd:self WithIntervalPosition:self.currentIntervalPosition];
-                }
+    if (self.delegate) {
+        // delegate call interval did end
+        if (!isFinished) {
+            if ([self.delegate respondsToSelector:@selector(intervalDidEnd:WithIntervalPosition:)]) {
+                [self.delegate intervalDidEnd:self WithIntervalPosition:self.currentIntervalPosition];
+                [self startNextInterval];
             }
         }
-        
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.6 animations:^{
-            self.counterLabel.alpha = 1.0;
-        } completion:^(BOOL finished) {
-            self.progressStopped = NO;
-            if (!isFinished) {
-                [self startNextInterval];
-            } else {
-                
-                // delegate call countdown did end
-                if (self.delegate && [self.delegate respondsToSelector:@selector(countdownDidEnd:)]) {
-                    [self.delegate countdownDidEnd:self];
-                }
+        else {
+            if ([self.delegate respondsToSelector:@selector(countdownDidEnd:)]) {
+                [self.delegate countdownDidEnd:self];
             }
-        }];
-        
-    }];
-    
+        }
+    }
+
+    self.progressStopped = NO;
 }
 
 - (void)counter:(SFCounterLabel *)counter didReachValue:(unsigned long long)value
@@ -263,23 +250,36 @@
     }
 }
 
-#pragma mark - tint color for rounded progress bars and label
+#pragma mark - color settings
 
-@synthesize progressColor = _progressColor;
-- (UIColor*)progressColor {
-    if (_progressColor) {
-        return _progressColor;
+@synthesize innerProgressColor = _innerProgressColor;
+- (UIColor*)innerProgressColor {
+    if (_innerProgressColor) {
+        return _innerProgressColor;
+    } else {
+        return self.intervalProgressView.tintColor;
+    }
+}
+
+- (void)setInnerProgressColor:(UIColor *)innerProgressColor
+{
+    _innerProgressColor = innerProgressColor;
+    self.intervalProgressView.tintColor = innerProgressColor;
+}
+
+@synthesize outerProgressColor = _outerProgressColor;
+- (UIColor*)outerProgressColor {
+    if (_outerProgressColor) {
+        return _outerProgressColor;
     } else {
         return self.totalProgressView.tintColor;
     }
 }
 
-- (void)setProgressColor:(UIColor *)progressColor
+- (void)setOuterProgressColor:(UIColor *)outerProgressColor
 {
-    _progressColor = progressColor;
-    
-    self.totalProgressView.tintColor = _progressColor;
-    self.intervalProgressView.tintColor = _progressColor;
+    _outerProgressColor = outerProgressColor;
+    self.totalProgressView.tintColor = outerProgressColor;
 }
 
 @synthesize labelColor = _labelColor;
@@ -311,6 +311,38 @@
     [super setBackgroundColor:backgroundColor];
     self.innerCircleView.backgroundColor = backgroundColor;
     self.outerCircleView.backgroundColor = backgroundColor;
+}
+
+@synthesize innerTrackColor = _innerTrackColor;
+- (UIColor *)innerTrackColor
+{
+    if (!_innerTrackColor) {
+        _innerTrackColor = [UIColor clearColor];
+    }
+    
+    return _innerTrackColor;
+}
+
+- (void)setInnerTrackColor:(UIColor *)innerTrackColor
+{
+    _innerTrackColor = innerTrackColor;
+    self.intervalProgressView.trackColor = innerTrackColor;
+}
+
+@synthesize outerTrackColor = _outerTrackColor;
+- (UIColor *)outerTrackColor
+{
+    if (!_outerTrackColor) {
+        _outerTrackColor = [UIColor clearColor];
+    }
+    
+    return _outerTrackColor;
+}
+
+- (void)setOuterTrackColor:(UIColor *)outerTrackColor
+{
+    _outerTrackColor = outerTrackColor;
+    self.totalProgressView.trackColor = outerTrackColor;
 }
 
 #pragma mark - thickness parameter

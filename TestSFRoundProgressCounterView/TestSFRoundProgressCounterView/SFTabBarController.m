@@ -45,7 +45,7 @@
     if ([item.title isEqualToString:@"Default"]) {
         
         ViewController* controller = self.viewControllers[0];
-        NSNumber* singleValue = [NSNumber numberWithLong:10000];
+        NSNumber* singleValue = [NSNumber numberWithLong:1200000000];
         controller.intervals = @[singleValue];
         controller.color = nil;
 
@@ -55,6 +55,7 @@
         NSNumber* singleValue = [NSNumber numberWithLong:120 * 1000];
         controller.intervals = @[singleValue];
         controller.color = [UIColor colorWithRed:0.4 green:0.6863 blue:0.4 alpha:1];
+        controller.bgColor = [UIColor colorWithRed:237.f/255.f green:237.f/255.f blue:237.f/255.f alpha:1.0];
         
     } else if ([item.title isEqualToString:@"Intervals"]) {
         

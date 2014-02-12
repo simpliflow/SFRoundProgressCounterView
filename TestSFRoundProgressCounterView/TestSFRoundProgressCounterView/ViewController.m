@@ -39,6 +39,10 @@
     self.progressCounterView.innerCircleThickness = [NSNumber numberWithFloat:1.0];
     self.progressCounterView.circleDistance = [NSNumber numberWithFloat:6.0];
     
+    // set track colors
+//    self.progressCounterView.innerTrackColor = [UIColor redColor];
+//    self.progressCounterView.outerTrackColor = [UIColor blackColor];
+    
     // setup audio player
     [self.warningAudioPlayer prepareToPlay];
     [self.finishAudioPlayer prepareToPlay];
@@ -116,10 +120,20 @@
 {
     if (color) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.progressCounterView.progressColor = color;
+            self.progressCounterView.innerProgressColor = color;
+            self.progressCounterView.outerProgressColor = color;
             self.progressCounterView.labelColor = color;
             
             self.startStopButton.tintColor = color;
+        });
+    }
+}
+
+- (void)setBgColor:(UIColor *)bgColor
+{
+    if (bgColor) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.progressCounterView.backgroundColor = bgColor;
         });
     }
 }

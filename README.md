@@ -52,12 +52,21 @@ Usage
         // thickness of inner circle
         self.sfProgressCounterView.innerCircleThickness = [NSNumber numberWithFloat:1.0];
 
+        // track color of outer circle
+        self.sfProgressCounterView.innerTrackColor = [UIColor redColor];
+        
+        // track color of inner circle
+        self.sfProgressCounterView.outerTrackColor = [UIColor blackColor];
+
         // distance between two circles (if multiple intervals)
         self.sfProgressCounterView.circleDistance = [NSNumber numberWithFloat:6.0]; 
 
-        // set color of progress circles
-        self.sfProgressCounterView.progressColor = color;
+        // set color of outer progress circles
+        self.sfProgressCounterView.outerProgressColor = color;
 
+        // set color of inner progress circle
+        self.sfProgressCounterView.innerProgressColor = color;
+        
         // set color of counter label
         self.sfProgressCounterView.labelColor = color;
 
