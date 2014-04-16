@@ -174,7 +174,11 @@
     unsigned long long milliSecs = (unsigned long long)(elapsedTime * 1000);
     
     if (self.countDirection == kCountDirectionDown) {
-        [self setValue:(_startValue - milliSecs)];
+        if (_startValue < milliSecs) {
+            [self setValue:0];
+        } else {
+            [self setValue:(_startValue - milliSecs)];
+        }
     } else {
         [self setValue:(_startValue + milliSecs)];
     }
