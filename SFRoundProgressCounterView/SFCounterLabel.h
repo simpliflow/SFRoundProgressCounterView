@@ -36,6 +36,7 @@ typedef NS_ENUM(NSInteger, kCountDirection){
 @property (strong, nonatomic) UIFont *boldFont;
 @property (strong, nonatomic) UIFont *regularFont;
 @property (nonatomic, assign) BOOL isRunning;
+@property (nonatomic, assign) BOOL hideFraction;
 
 #pragma mark - Public Methods
 

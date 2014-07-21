@@ -97,7 +97,11 @@
     // ensure we see the last digit go to zero.
     if (self.countDirection == kCountDirectionDown && _value < 50 && self.isRunning) {
         [self stop];
-        self.valueString = @"00s.00";
+        if (self.hideFraction) {
+            self.valueString = @"00s";
+        } else {
+            self.valueString = @"00s.00";
+        }
         
         // Inform any delegates
         if (self.countdownDelegate && [self.countdownDelegate respondsToSelector:@selector(countdownDidEnd)]) {
@@ -193,18 +197,22 @@
     unsigned long long hrs = value / msperhour;
     unsigned long long mins = (value % msperhour) / mspermin;
     unsigned long long secs = ((value % msperhour) % mspermin) / 1000;
-    unsigned long long frac = value % 1000 / 10;
     
     NSString *formattedString = @"";
     
     if (hrs == 0) {
         if (mins == 0) {
-            formattedString = [NSString stringWithFormat:@"%02llus.%02llu", secs, frac];
+            formattedString = [NSString stringWithFormat:@"%02llus", secs];
         } else {
-            formattedString = [NSString stringWithFormat:@"%02llum %02llus.%02llu", mins, secs, frac];
+            formattedString = [NSString stringWithFormat:@"%02llum %02llus", mins, secs];
         }
     } else {
-        formattedString = [NSString stringWithFormat:@"%02lluh %02llum %02llus.%02llu", hrs, mins, secs, frac];
+        formattedString = [NSString stringWithFormat:@"%02lluh %02llum %02llus", hrs, mins, secs];
+    }
+    
+    if (!self.hideFraction) {
+        unsigned long long frac = value % 1000 / 10;
+        formattedString = [NSString stringWithFormat:@"%@.%02llu", formattedString, frac];
     }
     
     return formattedString;

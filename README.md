@@ -70,6 +70,9 @@ Usage
         // set color of counter label
         self.sfProgressCounterView.labelColor = color;
 
+	// hide fraction 
+	self.sfProgressCounterView.hideFraction = YES;
+
 
 Delegate Methods
 ---------

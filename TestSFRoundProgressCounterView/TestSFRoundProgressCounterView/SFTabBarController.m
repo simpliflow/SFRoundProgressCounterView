@@ -56,6 +56,7 @@
         controller.intervals = @[singleValue];
         controller.color = [UIColor colorWithRed:0.4 green:0.6863 blue:0.4 alpha:1];
         controller.bgColor = [UIColor colorWithRed:237.f/255.f green:237.f/255.f blue:237.f/255.f alpha:1.0];
+        controller.hideFraction = YES;
         
     } else if ([item.title isEqualToString:@"Intervals"]) {
         

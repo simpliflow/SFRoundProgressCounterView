@@ -38,6 +38,7 @@
     self.progressCounterView.outerCircleThickness = [NSNumber numberWithFloat:3.0];
     self.progressCounterView.innerCircleThickness = [NSNumber numberWithFloat:1.0];
     self.progressCounterView.circleDistance = [NSNumber numberWithFloat:6.0];
+    self.progressCounterView.hideFraction = self.hideFraction;
     
     // set track colors
 //    self.progressCounterView.innerTrackColor = [UIColor redColor];

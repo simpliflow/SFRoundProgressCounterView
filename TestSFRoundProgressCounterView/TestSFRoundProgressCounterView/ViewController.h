@@ -14,6 +14,6 @@
 @property (nonatomic, strong) NSArray* intervals;
 @property (nonatomic, strong) UIColor* color;
 @property (nonatomic, strong) UIColor* bgColor;
-
+@property (nonatomic) BOOL hideFraction;
 
 @end

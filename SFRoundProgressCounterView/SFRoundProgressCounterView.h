@@ -42,6 +42,8 @@
 
 @property (strong, nonatomic) NSArray* intervals;
 
+@property (nonatomic, assign) BOOL hideFraction;
+
 - (void)start;
 - (void)stop;
 - (void)resume;

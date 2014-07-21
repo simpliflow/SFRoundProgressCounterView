@@ -124,6 +124,7 @@
     
     // counter label view
     self.counterLabel = [[SFCounterLabel alloc] init];
+    self.counterLabel.hideFraction = self.hideFraction;
     self.counterLabel.countDirection = kCountDirectionDown;
     self.counterLabel.countdownDelegate = self;
 }
@@ -298,6 +299,14 @@
 {
     _labelColor = labelColor;
     self.counterLabel.textColor = _labelColor;
+}
+
+@synthesize hideFraction = _hideFraction;
+
+- (void)setHideFraction:(BOOL)hideFraction
+{
+    _hideFraction = hideFraction;
+    self.counterLabel.hideFraction = _hideFraction;
 }
 
 @synthesize backgroundColor = _backgroundColor;
