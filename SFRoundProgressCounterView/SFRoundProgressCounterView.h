@@ -27,6 +27,9 @@
 
 @property (assign, nonatomic) id <SFRoundProgressCounterViewDelegate> delegate;
 
+@property (nonatomic, strong) UIView* outerCircleView;
+@property (nonatomic, strong) UIView* innerCircleView;
+
 @property (strong, nonatomic) UIColor* innerProgressColor;
 @property (strong, nonatomic) UIColor* outerProgressColor;
 

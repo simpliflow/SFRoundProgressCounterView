@@ -15,8 +15,6 @@
 @property (nonatomic, strong) SFRoundProgressView* totalProgressView;
 @property (nonatomic, strong) SFRoundProgressView* intervalProgressView;
 @property (nonatomic, strong) SFCounterLabel* counterLabel;
-@property (nonatomic, strong) UIView* outerCircleView;
-@property (nonatomic, strong) UIView* innerCircleView;
 
 @property (atomic) BOOL progressStopped;
 @property (assign) int currentIntervalPosition;
