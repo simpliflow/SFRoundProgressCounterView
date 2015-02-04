@@ -52,6 +52,7 @@
     self.boldFont = [UIFont boldSystemFontOfSize:55];
     self.regularFont = [UIFont systemFontOfSize:55];
     self.countDirection = kCountDirectionUp;
+    self.formatTimestring = kFormatTimestringNormal;
     self.value = 0;
     self.startValue = 0;
 }
@@ -122,45 +123,52 @@
         
         NSUInteger hrsLength = hoursString.length;
         
-        // Hours
-        if (weakSelf.value > 3599999) {
-            // The hours will be bold font, we need to set the font for the mins and secs
-            CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)weakSelf.regularFont.fontName, weakSelf.regularFont.pointSize, NULL);
+        if (weakSelf.formatTimestring == kFormatTimestringNormal) {
             
-            if (font) {
-                if (hrsLength > 2) {
-                    [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:NSMakeRange((hrsLength + 2), 2)];
-                    [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:NSMakeRange((hrsLength + 6), 2)];
-                    CFRelease(font);
-                } else {
+            // Hours
+            if (weakSelf.value > 3599999) {
+                // The hours will be bold font, we need to set the font for the mins and secs
+                CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)weakSelf.regularFont.fontName, weakSelf.regularFont.pointSize, NULL);
+                
+                if (font) {
+                    if (hrsLength > 2) {
+                        [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:NSMakeRange((hrsLength + 2), 2)];
+                        [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:NSMakeRange((hrsLength + 6), 2)];
+                        CFRelease(font);
+                    } else {
+                        [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:NSMakeRange(4, 2)];
+                        [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:NSMakeRange(8, 2)];
+                        CFRelease(font);
+                    }
+                }
+            }
+            
+            // Mins
+            if (weakSelf.value > 59999) {
+                // The mins will be bold font, we need to set the font for the secs
+                CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)weakSelf.regularFont.fontName, weakSelf.regularFont.pointSize, NULL);
+                
+                if (font) {
                     [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:NSMakeRange(4, 2)];
-                    [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:NSMakeRange(8, 2)];
                     CFRelease(font);
                 }
             }
-        }
-        
-        // Mins
-        if (weakSelf.value > 59999) {
-            // The mins will be bold font, we need to set the font for the secs
-            CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)weakSelf.regularFont.fontName, weakSelf.regularFont.pointSize, NULL);
             
-            if (font) {
-                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:NSMakeRange(4, 2)];
-                CFRelease(font);
+            CTFontRef boldFont = CTFontCreateWithName((__bridge CFStringRef)weakSelf.boldFont.fontName, weakSelf.boldFont.pointSize, NULL);
+            
+            if (boldFont) {
+                if (hrsLength > 2) {
+                    [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)boldFont range:NSMakeRange(0, hrsLength)];
+                    CFRelease(boldFont);
+                } else {
+                    [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)boldFont range:NSMakeRange(0, 2)];
+                    CFRelease(boldFont);
+                }
             }
-        }
-        
-        CTFontRef boldFont = CTFontCreateWithName((__bridge CFStringRef)weakSelf.boldFont.fontName, weakSelf.boldFont.pointSize, NULL);
-        
-        if (boldFont) {
-            if (hrsLength > 2) {
-                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)boldFont range:NSMakeRange(0, hrsLength)];
-                CFRelease(boldFont);
-            } else {
-                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)boldFont range:NSMakeRange(0, 2)];
-                CFRelease(boldFont);
-            }
+        } else {
+            CTFontRef boldFont = CTFontCreateWithName((__bridge CFStringRef)weakSelf.boldFont.fontName, weakSelf.boldFont.pointSize, NULL);
+            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)boldFont range:NSMakeRange(0, mutableAttributedString.length)];
+            CFRelease(boldFont);
         }
         
         return mutableAttributedString;
@@ -200,19 +208,23 @@
     
     NSString *formattedString = @"";
     
-    if (hrs == 0) {
-        if (mins == 0) {
-            formattedString = [NSString stringWithFormat:@"%02llus", secs];
-        } else {
-            formattedString = [NSString stringWithFormat:@"%02llum %02llus", mins, secs];
-        }
+    if (self.formatTimestring == kFormatTimestringColons) {
+        formattedString = [NSString stringWithFormat:@"%02llu:%02llu:%02llu", hrs, mins, secs];
     } else {
-        formattedString = [NSString stringWithFormat:@"%02lluh %02llum %02llus", hrs, mins, secs];
-    }
-    
-    if (!self.hideFraction) {
-        unsigned long long frac = value % 1000 / 10;
-        formattedString = [NSString stringWithFormat:@"%@.%02llu", formattedString, frac];
+        if (hrs == 0) {
+            if (mins == 0) {
+                formattedString = [NSString stringWithFormat:@"%02llus", secs];
+            } else {
+                formattedString = [NSString stringWithFormat:@"%02llum %02llus", mins, secs];
+            }
+        } else {
+            formattedString = [NSString stringWithFormat:@"%02lluh %02llum %02llus", hrs, mins, secs];
+        }
+        
+        if (!self.hideFraction) {
+            unsigned long long frac = value % 1000 / 10;
+            formattedString = [NSString stringWithFormat:@"%@.%02llu", formattedString, frac];
+        }
     }
     
     return formattedString;
