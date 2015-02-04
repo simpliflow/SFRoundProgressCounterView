@@ -16,6 +16,10 @@ typedef NS_ENUM(NSInteger, kCountDirection){
     kCountDirectionDown
 };
 
+typedef NS_ENUM(NSInteger, kFormatTimestring){
+    kFormatTimestringNormal = 0,
+    kFormatTimestringColons
+};
 #pragma mark - SFCounterLabelDelegate
 @class SFCounterLabel;
 
@@ -33,6 +37,7 @@ typedef NS_ENUM(NSInteger, kCountDirection){
 @property (nonatomic, assign) unsigned long long currentValue;
 @property (nonatomic, assign) unsigned long long startValue;
 @property (nonatomic, assign) NSInteger countDirection;
+@property (nonatomic, assign) NSInteger formatTimestring;
 @property (strong, nonatomic) UIFont *boldFont;
 @property (strong, nonatomic) UIFont *regularFont;
 @property (nonatomic, assign) BOOL isRunning;
