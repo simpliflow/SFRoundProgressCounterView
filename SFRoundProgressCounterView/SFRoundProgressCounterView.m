@@ -88,6 +88,9 @@
     
     [self.counterLabel setBoldFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:fontSize + 20]];
     [self.counterLabel setRegularFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:fontSize + 15]];
+    
+    [self.counterLabel setFont:[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:fontSize - 5]];
+
     self.counterLabel.adjustsFontSizeToFitWidth = YES;
     [self.counterLabel updateApperance];
     
